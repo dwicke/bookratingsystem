@@ -4,7 +4,12 @@
  */
 package com.techspy.bookratingsystem.view;
 
+import com.techspy.bookratingsystem.model.RatingEnum;
+import com.techspy.bookratingsystem.model.RatingValue;
 import com.techspy.bookratingsystem.model.Result;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * This is the view for a single textbook result.
@@ -13,7 +18,7 @@ import com.techspy.bookratingsystem.model.Result;
 public class ResultPanel extends javax.swing.JPanel {
 
     private Result myResult;
-    
+    Map<RatingEnum, StarRater> ratings;
     /**
      * Creates new form ResultPanel
      */
@@ -22,6 +27,11 @@ public class ResultPanel extends javax.swing.JPanel {
         userClarityRating.setVisible(false);
         userEasinessRating.setVisible(false);
         userHelpfulnessRating.setVisible(false);
+        ratings = new EnumMap<RatingEnum, StarRater>(RatingEnum.class);
+        ratings.put(RatingEnum.HELPFUL, helpfulnessRating);
+        ratings.put(RatingEnum.CLARITY, clarityRating);
+        ratings.put(RatingEnum.EASINESS, easinessRating);
+        ratings.put(RatingEnum.OVERALL, overallRating);
     }
 
     
@@ -30,6 +40,9 @@ public class ResultPanel extends javax.swing.JPanel {
         // draw it
         lbAuthor.setText("Author: " + res.getBook().getAuthor());
         lbTitle.setText("Title: " + res.getBook().getTitle());
+        for (RatingValue rate : res.getRatings()) {
+            ratings.get(rate.getRatingCategory()).setRating(rate.getRating());
+        }
         
     }
     

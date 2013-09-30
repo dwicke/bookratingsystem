@@ -10,7 +10,7 @@ package com.techspy.bookratingsystem.model;
  */
 public class RatingValue {
     private float rating;
-    private String ratingCategory;
+    private RatingEnum ratingCategory;
     private int total, possible, outof;
     
     /**
@@ -20,7 +20,7 @@ public class RatingValue {
      * @param outof the number of stars per person
      * @param category the category that this rating belongs to
      */
-    public RatingValue(int total, int possible, int outof, String category) {
+    public RatingValue(int total, int possible, int outof, RatingEnum category) {
         this.total = total;
         this.possible = possible;
         this.outof = outof;
@@ -38,13 +38,11 @@ public class RatingValue {
         this.rating = rating;
     }
 
-    public String getRatingCategory() {
+    public RatingEnum getRatingCategory() {
         return ratingCategory;
     }
 
-    public void setRatingCategory(String ratingCategory) {
-        this.ratingCategory = ratingCategory;
-    }
+    
 
     public int getTotal() {
         return total;
