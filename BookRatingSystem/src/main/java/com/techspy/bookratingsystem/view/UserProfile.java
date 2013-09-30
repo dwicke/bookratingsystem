@@ -7,6 +7,7 @@ package com.techspy.bookratingsystem.view;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.techspy.bookratingsystem.controler.IUserController;
+import com.techspy.bookratingsystem.model.Textbook;
 import com.techspy.bookratingsystem.model.User;
 
 /**
@@ -29,6 +30,10 @@ public class UserProfile extends javax.swing.JPanel {
         // be set to ""
         welcomeLabel.setText("<html><h2>Welcome: " + user.getUsername() + "</h2></html>");
         welcomeLabel.repaint();
+    }
+    
+    @Subscribe public void updateRating(Textbook title) {
+        System.out.println("User profile is updating ratings");
     }
     
     /**

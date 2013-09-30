@@ -20,7 +20,7 @@ import java.util.TreeMap;
  * This class is used to update the ratings of all textbooks.
  * @author drew
  */
-@Singleton
+
 public class RatingController implements IRatingController {
 
     private Map<Textbook, List<RatingValue>> ratings;

@@ -46,7 +46,7 @@ public class UserController implements IUserController{
                 vals.add(rating);
                 theUser.getRatings().put(title, vals);
             }
-            
+            bus.post(title);
         }
     }
     

@@ -5,6 +5,7 @@
 package com.techspy.bookratingsystem.controler;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.techspy.bookratingsystem.model.RatingValue;
 import com.techspy.bookratingsystem.model.Result;
 import com.techspy.bookratingsystem.model.Textbook;
@@ -14,6 +15,7 @@ import java.util.List;
  * Used to update the ratings of textbooks
  * @author drew
  */
+
 public interface IRatingController {
     //public void addRating(Result res);
     /**

@@ -19,7 +19,7 @@ import com.techspy.bookratingsystem.model.Textbook;
  * Used to search for textbooks based on a SearchTerm
  * @author drew
  */
-@Singleton
+
 public class SearchController implements ISearchController {
     
     private EventBus bus;
