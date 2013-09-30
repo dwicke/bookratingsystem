@@ -1,5 +1,6 @@
 package com.techspy.bookratingsystem.view;
 
+import com.techspy.bookratingsystem.model.RatingEnum;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -37,7 +38,7 @@ public class StarRater extends JPanel {
      * 
      * @param selection  The selection.
      */
-    void handleSelection(int selection);
+    void handleSelection(int selection, RatingEnum id);
   }
   
   /** Listeners. */
@@ -53,7 +54,12 @@ public class StarRater extends JPanel {
   private int rollover;
   /** True for clicked this time. */
   private boolean done;
+  /** the id of the star rater*/
+  private RatingEnum id;
   
+  public void setID (RatingEnum id) {
+      this.id = id;
+  }
   
   /**
    * The constructor.
@@ -124,7 +130,7 @@ public class StarRater extends JPanel {
           done = true;
           StarRater.this.selection = 1 + (event.getX() / STAR_BACKGROUND_IMAGE.getWidth(null));  
           for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).handleSelection(StarRater.this.selection);
+            listeners.get(i).handleSelection(StarRater.this.selection, StarRater.this.id);
           }
           repaint();
         }

@@ -4,6 +4,11 @@
  */
 package com.techspy.bookratingsystem.view;
 
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
+import com.techspy.bookratingsystem.controler.IUserController;
+import com.techspy.bookratingsystem.controler.impl.UserController;
 import com.techspy.bookratingsystem.model.RatingEnum;
 import com.techspy.bookratingsystem.model.RatingValue;
 import com.techspy.bookratingsystem.model.Result;
@@ -15,10 +20,12 @@ import java.util.TreeMap;
  * This is the view for a single textbook result.
  * @author drew
  */
-public class ResultPanel extends javax.swing.JPanel {
+public class ResultPanel extends javax.swing.JPanel implements StarRater.StarListener{
 
     private Result myResult;
     Map<RatingEnum, StarRater> ratings;
+    Map<RatingEnum, StarRater> uratings;
+    
     /**
      * Creates new form ResultPanel
      */
@@ -32,6 +39,15 @@ public class ResultPanel extends javax.swing.JPanel {
         ratings.put(RatingEnum.CLARITY, clarityRating);
         ratings.put(RatingEnum.EASINESS, easinessRating);
         ratings.put(RatingEnum.OVERALL, overallRating);
+        uratings = new EnumMap<RatingEnum, StarRater>(RatingEnum.class);
+        uratings.put(RatingEnum.HELPFUL, userHelpfulnessRating);
+        uratings.put(RatingEnum.CLARITY, userClarityRating);
+        uratings.put(RatingEnum.EASINESS, userEasinessRating);
+        Main.injector.getInstance(EventBus.class).register(this);
+        for(StarRater r : uratings.values()) {
+            r.addStarListener(this);
+        }
+        lbRateit.setVisible(false);
     }
 
     
@@ -44,6 +60,13 @@ public class ResultPanel extends javax.swing.JPanel {
             ratings.get(rate.getRatingCategory()).setRating(rate.getRating());
         }
         
+    }
+    
+    @Subscribe public void updateUser(IUserController uControl) {
+        for(StarRater r : uratings.values()) {
+            r.setVisible(true);
+        }
+        lbRateit.setVisible(true);
     }
     
     
@@ -65,6 +88,11 @@ public class ResultPanel extends javax.swing.JPanel {
         userHelpfulnessRating = new com.techspy.bookratingsystem.view.StarRater();
         userClarityRating = new com.techspy.bookratingsystem.view.StarRater();
         userEasinessRating = new com.techspy.bookratingsystem.view.StarRater();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lbRateit = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -84,11 +112,21 @@ public class ResultPanel extends javax.swing.JPanel {
 
         lbAuthor.setText("Author:");
 
+        jLabel1.setText("Helpfulness");
+
+        jLabel2.setText("Clarity");
+
+        jLabel3.setText("Easiness");
+
+        jLabel4.setText("Overall:");
+
+        lbRateit.setText("Rate it:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
@@ -97,28 +135,41 @@ public class ResultPanel extends javax.swing.JPanel {
                             .addComponent(lbTitle))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(167, Short.MAX_VALUE)
+                        .addContainerGap(99, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(overallRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(20, 20, 20)
+                        .addComponent(lbRateit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userHelpfulnessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(helpfulnessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addComponent(helpfulnessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(clarityRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(easinessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(userClarityRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(userEasinessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(userEasinessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(clarityRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(easinessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(38, 38, 38))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbTitle)
                     .addComponent(helpfulnessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -126,8 +177,10 @@ public class ResultPanel extends javax.swing.JPanel {
                     .addComponent(clarityRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addComponent(overallRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(overallRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
                         .addGap(15, 15, 15)
                         .addComponent(lbAuthor)
                         .addGap(22, 22, 22))
@@ -136,7 +189,8 @@ public class ResultPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(userClarityRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(userHelpfulnessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(userEasinessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(userEasinessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbRateit))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -144,11 +198,25 @@ public class ResultPanel extends javax.swing.JPanel {
     private com.techspy.bookratingsystem.view.StarRater clarityRating;
     private com.techspy.bookratingsystem.view.StarRater easinessRating;
     private com.techspy.bookratingsystem.view.StarRater helpfulnessRating;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lbAuthor;
+    private javax.swing.JLabel lbRateit;
     private javax.swing.JLabel lbTitle;
     private com.techspy.bookratingsystem.view.StarRater overallRating;
     private com.techspy.bookratingsystem.view.StarRater userClarityRating;
     private com.techspy.bookratingsystem.view.StarRater userEasinessRating;
     private com.techspy.bookratingsystem.view.StarRater userHelpfulnessRating;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * handles the selections of the user selections
+     * @param selection
+     * @param id 
+     */
+    public void handleSelection(int selection, RatingEnum id) {
+       
+    }
 }
