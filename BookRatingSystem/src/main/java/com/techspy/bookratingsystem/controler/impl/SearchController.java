@@ -43,6 +43,7 @@ public class SearchController implements ISearchController {
     public void search() {
         // add results via IResultsController
         // then post results
+        resultsController.clearResults();
         for(Textbook book : textbookController.getTextbooks(searchValue.getSearchTerm())){
             resultsController.addResult(new Result(book, ratingController.getRating(book)));
         }

@@ -5,7 +5,11 @@
 package com.techspy.bookratingsystem.view;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.techspy.bookratingsystem.controler.IResultsController;
+import com.techspy.bookratingsystem.model.Result;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,22 +17,47 @@ import com.techspy.bookratingsystem.controler.IResultsController;
  */
 public class ResultsPanel extends javax.swing.JPanel {
 
+    List<ResultPanel> resultViews;
     /**
      * Creates new form ResultsPanel
      */
     public ResultsPanel() {
         initComponents();
         Main.injector.getInstance(EventBus.class).register(this);
+        resultViews = new ArrayList<ResultPanel>();
+        resultViews.add(resultPanel1);
+        resultViews.add(resultPanel2);
+        resultViews.add(resultPanel3);
+        resultViews.add(resultPanel4);
+        resultViews.add(resultPanel5);
+        hideResults();
     }
 
     /**
      * This gets called when the user has hit the search button
      * @param results 
      */
-    public void updateResults(IResultsController results) {
+    @Subscribe public void updateResults(IResultsController results) {
         // first clear the current results
+        System.out.println("HIhihih");
+        hideResults();
+        int i = 0;
+        // then update them and show them as you go along
+        for(Result res : results.getNextResultPage()) {
+            System.out.println(res);
+            resultViews.get(i).setResult(res);
+            resultViews.get(i).setVisible(true);
+            i++;
+        }
         
-        // then 
+        this.repaint();
+        
+    }
+    
+    private void hideResults() {
+        for (ResultPanel res : resultViews) {
+            res.setVisible(false);
+        }
     }
     
     

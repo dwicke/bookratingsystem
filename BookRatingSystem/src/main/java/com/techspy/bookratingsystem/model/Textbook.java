@@ -8,7 +8,7 @@ package com.techspy.bookratingsystem.model;
  *
  * @author drew
  */
-public class Textbook {
+public class Textbook implements Comparable<Textbook> {
     private String title, author, id;
 
     public String getTitle() {
@@ -33,6 +33,10 @@ public class Textbook {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int compareTo(Textbook o) {
+        return o.id.compareTo(id);
     }
     
     

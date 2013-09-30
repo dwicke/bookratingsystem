@@ -4,12 +4,16 @@
  */
 package com.techspy.bookratingsystem.view;
 
+import com.techspy.bookratingsystem.model.Result;
+
 /**
  * This is the view for a single textbook result.
  * @author drew
  */
 public class ResultPanel extends javax.swing.JPanel {
 
+    private Result myResult;
+    
     /**
      * Creates new form ResultPanel
      */
@@ -20,6 +24,16 @@ public class ResultPanel extends javax.swing.JPanel {
         userHelpfulnessRating.setVisible(false);
     }
 
+    
+    public void setResult(Result res) {
+        myResult = res;
+        // draw it
+        lbAuthor.setText("Author: " + res.getBook().getAuthor());
+        lbTitle.setText("Title: " + res.getBook().getTitle());
+        
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -10,6 +10,7 @@ import com.techspy.bookratingsystem.controler.IResultsController;
 import com.techspy.bookratingsystem.model.Result;
 import com.techspy.bookratingsystem.model.ResultsModel;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,6 +20,8 @@ public class ResultsController implements IResultsController{
     
     private ResultsModel resModel;
     private EventBus bus;
+    private int pageSize = 5;
+    private int curPage = 0;
     
     @Inject public ResultsController(EventBus bus) {
         this.bus = bus;
@@ -31,11 +34,52 @@ public class ResultsController implements IResultsController{
 
     public void clearResults() {
         resModel.setResults(new ArrayList<Result>());
+        curPage = 0;
     }
     
     
     public Result getResult(int i) {
         return resModel.getResult(i);
+    }
+
+    public List<Result> getNextResultPage() {
+        List<Result> page = new ArrayList<Result>();
+        
+        for (int i = pageSize * curPage; i < pageSize * (curPage + 1); i++) {
+            if (i < resModel.getRowCount())
+                page.add(resModel.getResult(i));
+            else
+                break;
+        }
+        
+        curPage++;
+        return page;
+    }
+
+    public List<Result> getPrevResultPage() {
+        List<Result> page = new ArrayList<Result>();
+        
+        for (int i = pageSize * curPage; i > pageSize * (curPage - 1); i--) {
+            if (i < resModel.getRowCount())
+                page.add(resModel.getResult(i));
+            else
+                break;
+        }
+        
+        curPage--;
+        return page;
+    }
+
+    public void setPageSize(int size) {
+        pageSize = size;
+    }
+
+    public boolean hasNextPage() {
+        return true;
+    }
+
+    public boolean hasPrevPage() {
+        return true;
     }
     
 }
