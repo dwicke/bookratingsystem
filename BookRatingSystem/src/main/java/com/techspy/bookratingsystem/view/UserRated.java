@@ -4,6 +4,11 @@
  */
 package com.techspy.bookratingsystem.view;
 
+import com.techspy.bookratingsystem.controler.IUserController;
+import com.techspy.bookratingsystem.model.RatingValue;
+import com.techspy.bookratingsystem.model.Textbook;
+import java.util.List;
+
 /**
  *
  * @author drew
@@ -17,6 +22,17 @@ public class UserRated extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void updateRating(Textbook book) {
+        IUserController uc = Main.injector.getInstance(IUserController.class);
+        List<RatingValue> rate = uc.getRatings(book);
+        jLabel1.setText(book.getTitle());
+        
+        System.out.println("Updating the rating");
+        revalidate();
+        invalidate();
+        repaint();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

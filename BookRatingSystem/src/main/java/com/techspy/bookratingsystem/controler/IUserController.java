@@ -9,6 +9,7 @@ import com.techspy.bookratingsystem.model.RatingValue;
 import com.techspy.bookratingsystem.model.Textbook;
 import com.techspy.bookratingsystem.model.User;
 import com.techspy.bookratingsystem.view.Title;
+import java.util.List;
 
 /**
  * Logs user in or creates a new user
@@ -48,4 +49,6 @@ public interface IUserController {
     public boolean isLoggedOn();
     
     public void addRating(Textbook title, RatingValue rating);
+    
+    public List<RatingValue> getRatings(Textbook title);
 }

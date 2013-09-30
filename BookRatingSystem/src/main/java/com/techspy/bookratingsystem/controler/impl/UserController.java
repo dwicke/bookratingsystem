@@ -88,5 +88,9 @@ public class UserController implements IUserController{
     public boolean isLoggedOn() {
         return loggedOn;
     }
+
+    public List<RatingValue> getRatings(Textbook title) {
+        return theUser.getRatings().get(title);
+    }
     
 }

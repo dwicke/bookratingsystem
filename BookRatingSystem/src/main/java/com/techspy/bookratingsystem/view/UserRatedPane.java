@@ -8,6 +8,8 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.techspy.bookratingsystem.model.Textbook;
 import java.awt.GridLayout;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -15,21 +17,34 @@ import java.awt.GridLayout;
  */
 public class UserRatedPane extends javax.swing.JPanel {
 
+    Map<Textbook, UserRated> updateMap;
+    
     /**
      * Creates new form UserRatedPane
      */
     public UserRatedPane() {
         initComponents();
         Main.injector.getInstance(EventBus.class).register(this);// register this to receive events
+        updateMap = new TreeMap<Textbook, UserRated>();
+        userRatedPanel.setLayout(new GridLayout(5, 1));
     }
 
     @Subscribe public void updateRating(Textbook title) {
         System.out.println("User profile is updating ratings");
-        userRatedPanel.setLayout(new GridLayout(5, 1));
-        userRatedPanel.add(new UserRated());
-        userRatedPanel.add(new UserRated());
-        userRatedPanel.add(new UserRated());
         
+        if (updateMap.containsKey(title)) {
+            updateMap.get(title);
+        }
+        else {
+            //((GridLayout)userRatedPanel.getLayout()).setRows(updateMap.size() + 1);
+            UserRated ur = new UserRated();
+            ur.updateRating(title);
+            updateMap.put(title, ur);
+            userRatedPanel.add(ur);
+        }
+        revalidate();
+        invalidate();
+        repaint();
     }
     /**
      * This method is called from within the constructor to initialize the form.
