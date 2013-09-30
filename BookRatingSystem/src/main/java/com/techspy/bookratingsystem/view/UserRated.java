@@ -19,6 +19,7 @@ import java.util.Map;
 public class UserRated extends javax.swing.JPanel {
 
     private Map<RatingEnum, StarRater> ratings;
+    private Textbook myText;
     /**
      * Creates new form UserRated
      */
@@ -31,6 +32,7 @@ public class UserRated extends javax.swing.JPanel {
     }
 
     public void updateRating(Textbook book) {
+        myText = book;
         IUserController uc = Main.injector.getInstance(IUserController.class);
         List<RatingValue> rate = uc.getRatings(book);
         titleBt.setText(book.getTitle());
@@ -65,6 +67,11 @@ public class UserRated extends javax.swing.JPanel {
         titleBt.setText("jLabel1");
 
         deleteButton.setText("jButton1");
+        deleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -96,6 +103,15 @@ public class UserRated extends javax.swing.JPanel {
             .addComponent(deleteButton)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
+        // TODO add your handling code here:
+        IUserController uc = Main.injector.getInstance(IUserController.class);
+        
+        
+        
+    }//GEN-LAST:event_deleteButtonMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.techspy.bookratingsystem.view.StarRater clarityRating;
     private javax.swing.JButton deleteButton;

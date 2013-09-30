@@ -95,5 +95,9 @@ public class UserController implements IUserController{
     public List<RatingValue> getRatings(Textbook title) {
         return theUser.getRatings().get(title);
     }
+
+    public void deleteRating(Textbook title) {
+        theUser.getRatings().remove(title);
+    }
     
 }

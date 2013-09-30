@@ -12,6 +12,7 @@ import com.techspy.bookratingsystem.controler.impl.UserController;
 import com.techspy.bookratingsystem.model.RatingEnum;
 import com.techspy.bookratingsystem.model.RatingValue;
 import com.techspy.bookratingsystem.model.Result;
+import com.techspy.bookratingsystem.model.Textbook;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -232,4 +233,10 @@ public class ResultPanel extends javax.swing.JPanel implements StarRater.StarLis
        // get the usercontroller and tell it that the user has rated the book this way.
        Main.injector.getInstance(IUserController.class).addRating(myResult.getBook(), new RatingValue(selection, 5, 5, id));
     }
+    
+    
+    @Subscribe void handleProfileUpdates(Textbook book) {
+        
+    }
+    
 }

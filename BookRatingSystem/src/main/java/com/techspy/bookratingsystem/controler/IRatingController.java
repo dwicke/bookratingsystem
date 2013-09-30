@@ -28,6 +28,7 @@ public interface IRatingController {
     /**
      * initialize the rating controller.  should be first method called.
      */
-    @Inject public void init(ITextbookController txtbookController);
+    public void init(ITextbookController txtbookController);
+    
     
 }

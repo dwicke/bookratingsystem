@@ -51,4 +51,6 @@ public interface IUserController {
     public void addRating(Textbook title, RatingValue rating);
     
     public List<RatingValue> getRatings(Textbook title);
+    
+    public void deleteRating(Textbook title);
 }
