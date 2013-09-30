@@ -1,4 +1,4 @@
-bookratingsystem
+Book Rating System
 ================
 
 Todo:
