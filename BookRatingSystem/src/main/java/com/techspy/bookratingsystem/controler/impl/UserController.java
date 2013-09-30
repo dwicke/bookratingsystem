@@ -34,6 +34,11 @@ public class UserController implements IUserController{
         loggedOn = false;
     }
     
+    /**
+     * Adds the rating and posts the title that was rated.
+     * @param title
+     * @param rating 
+     */
     public void addRating(Textbook title, RatingValue rating) {
         if (loggedOn) {
             if (theUser.getRatings().containsKey(title)) {

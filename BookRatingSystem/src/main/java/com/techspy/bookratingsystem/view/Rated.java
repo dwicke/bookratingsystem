@@ -5,7 +5,9 @@
 package com.techspy.bookratingsystem.view;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.techspy.bookratingsystem.model.ResultsModel;
+import com.techspy.bookratingsystem.model.Textbook;
 import javax.swing.DefaultCellEditor;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
@@ -22,9 +24,8 @@ public class Rated extends javax.swing.JPanel {
      */
     public Rated() {
         initComponents();
-        
     }
-
+    
     
     
     /**
