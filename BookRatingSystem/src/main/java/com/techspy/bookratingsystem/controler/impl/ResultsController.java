@@ -34,6 +34,8 @@ public class ResultsController implements IResultsController{
     }
     
     
-    
+    public Result getResult(int i) {
+        return resModel.getResult(i);
+    }
     
 }

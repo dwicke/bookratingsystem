@@ -6,6 +6,7 @@ package com.techspy.bookratingsystem.controler.impl;
 
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.techspy.bookratingsystem.controler.IRatingController;
 import com.techspy.bookratingsystem.controler.IResultsController;
 import com.techspy.bookratingsystem.controler.ISearchController;
@@ -18,6 +19,7 @@ import com.techspy.bookratingsystem.model.Textbook;
  * Used to search for textbooks based on a SearchTerm
  * @author drew
  */
+@Singleton
 public class SearchController implements ISearchController {
     
     private EventBus bus;
@@ -26,13 +28,9 @@ public class SearchController implements ISearchController {
     private ITextbookController textbookController;
     private IRatingController ratingController;
     @Inject
-    public SearchController(EventBus bus/*, IResultsController searchResultsControl, ITextbookController tc, IRatingController rc*/) {
+    public SearchController(EventBus bus) {
         this.bus = bus;
         this.searchValue = new SearchTerm();
-        //resultsController = searchResultsControl;
-        //textbookController = tc;
-        //ratingController = rc;
-        
     }
     
     @Inject public void init(IResultsController searchResultsControl, ITextbookController tc, IRatingController rc) {

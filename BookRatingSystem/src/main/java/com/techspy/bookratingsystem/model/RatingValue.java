@@ -67,5 +67,20 @@ public class RatingValue {
     public String toString() {
         return ratingCategory + ": " + rating + " /5.0";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof RatingValue))
+            return false;
+        return ((RatingValue) obj).ratingCategory.equals(ratingCategory);
+    }
+
+    public void update(RatingValue rating) {
+        outof = rating.outof;
+        possible = rating.possible;
+        total = rating.total;
+    }
+    
+    
     
 }

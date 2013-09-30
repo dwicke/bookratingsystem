@@ -16,8 +16,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * This class is used to update the ratings of textbooks.
- * It publishes the ratings so appropriate views can be updated.
+ * This class is used to update the ratings of all textbooks.
  * @author drew
  */
 @Singleton
