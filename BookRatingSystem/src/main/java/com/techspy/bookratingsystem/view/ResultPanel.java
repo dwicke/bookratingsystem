@@ -15,6 +15,7 @@ import com.techspy.bookratingsystem.model.Result;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.swing.RowFilter;
 
 /**
  * This is the view for a single textbook result.
@@ -44,8 +45,9 @@ public class ResultPanel extends javax.swing.JPanel implements StarRater.StarLis
         uratings.put(RatingEnum.CLARITY, userClarityRating);
         uratings.put(RatingEnum.EASINESS, userEasinessRating);
         Main.injector.getInstance(EventBus.class).register(this);
-        for(StarRater r : uratings.values()) {
-            r.addStarListener(this);
+        for(Map.Entry<RatingEnum, StarRater> r : uratings.entrySet()) {
+            r.getValue().addStarListener(this);
+            r.getValue().setID(r.getKey());
         }
         lbRateit.setVisible(false);
     }
@@ -63,10 +65,18 @@ public class ResultPanel extends javax.swing.JPanel implements StarRater.StarLis
     }
     
     @Subscribe public void updateUser(IUserController uControl) {
-        for(StarRater r : uratings.values()) {
-            r.setVisible(true);
+        if (uControl.isLoggedOn() && !lbRateit.isVisible()) {
+            for(StarRater r : uratings.values()) {
+                r.setVisible(true);
+            }
+            lbRateit.setVisible(true);
         }
-        lbRateit.setVisible(true);
+        else {
+            for(StarRater r : uratings.values()) {
+                r.setVisible(false);
+            }
+            lbRateit.setVisible(false);
+        }
     }
     
     
@@ -217,6 +227,9 @@ public class ResultPanel extends javax.swing.JPanel implements StarRater.StarLis
      * @param id 
      */
     public void handleSelection(int selection, RatingEnum id) {
-       
+        System.out.println(myResult.getBook());
+       System.out.println(myResult.getBook().getTitle() + " rated: " + id + " " + selection + "/5");
+       // get the usercontroller and tell it that the user has rated the book this way.
+       Main.injector.getInstance(IUserController.class).addRating(myResult.getBook(), new RatingValue(selection, 5, 5, id));
     }
 }

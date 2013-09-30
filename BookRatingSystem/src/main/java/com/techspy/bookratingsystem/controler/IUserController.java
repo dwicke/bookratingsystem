@@ -4,7 +4,11 @@
  */
 package com.techspy.bookratingsystem.controler;
 
+import com.techspy.bookratingsystem.model.RatingEnum;
+import com.techspy.bookratingsystem.model.RatingValue;
+import com.techspy.bookratingsystem.model.Textbook;
 import com.techspy.bookratingsystem.model.User;
+import com.techspy.bookratingsystem.view.Title;
 
 /**
  * Logs user in or creates a new user
@@ -42,4 +46,6 @@ public interface IUserController {
      * @return true if user has been logged on
      */
     public boolean isLoggedOn();
+    
+    public void addRating(Textbook title, RatingValue rating);
 }
