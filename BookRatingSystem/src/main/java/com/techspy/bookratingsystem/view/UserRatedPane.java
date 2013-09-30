@@ -34,6 +34,7 @@ public class UserRatedPane extends javax.swing.JPanel {
         
         if (updateMap.containsKey(title)) {
             updateMap.get(title);
+            updateMap.get(title).updateRating(title);
         }
         else {
             //((GridLayout)userRatedPanel.getLayout()).setRows(updateMap.size() + 1);

@@ -45,6 +45,9 @@ public class UserController implements IUserController{
                 List<RatingValue> vals = theUser.getRatings().get(title);
                 if(vals.contains(rating)) {
                     vals.get(vals.indexOf(rating)).update(rating);
+                }else {
+                    // need to add the rating
+                    vals.add(rating);
                 }
             } else {
                 ArrayList<RatingValue> vals = new ArrayList<RatingValue>();

@@ -18,15 +18,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Component id="titleBt" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
-              <Component id="starRater1" min="-2" max="-2" attributes="0"/>
+              <Component id="helpfulRating" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Component id="starRater2" min="-2" max="-2" attributes="0"/>
+              <Component id="clarityRating" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="starRater3" min="-2" max="-2" attributes="0"/>
+              <Component id="easinessRating" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="deleteButton" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -35,44 +35,44 @@
           <Group type="102" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="starRater1" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="starRater2" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="starRater3" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="helpfulRating" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="clarityRating" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="easinessRating" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="titleBt" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
-          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+          <Component id="deleteButton" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="com.techspy.bookratingsystem.view.StarRater" name="starRater1">
+    <Container class="com.techspy.bookratingsystem.view.StarRater" name="helpfulRating">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.techspy.bookratingsystem.view.StarRater" name="starRater2">
+    <Container class="com.techspy.bookratingsystem.view.StarRater" name="clarityRating">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="com.techspy.bookratingsystem.view.StarRater" name="starRater3">
+    <Container class="com.techspy.bookratingsystem.view.StarRater" name="easinessRating">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="titleBt">
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="deleteButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="jButton1"/>
       </Properties>

@@ -5,9 +5,12 @@
 package com.techspy.bookratingsystem.view;
 
 import com.techspy.bookratingsystem.controler.IUserController;
+import com.techspy.bookratingsystem.model.RatingEnum;
 import com.techspy.bookratingsystem.model.RatingValue;
 import com.techspy.bookratingsystem.model.Textbook;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,22 +18,33 @@ import java.util.List;
  */
 public class UserRated extends javax.swing.JPanel {
 
+    private Map<RatingEnum, StarRater> ratings;
     /**
      * Creates new form UserRated
      */
     public UserRated() {
         initComponents();
+        ratings = new EnumMap<RatingEnum, StarRater>(RatingEnum.class);
+        ratings.put(RatingEnum.HELPFUL, helpfulRating);
+        ratings.put(RatingEnum.CLARITY, clarityRating);
+        ratings.put(RatingEnum.EASINESS, easinessRating);
     }
 
     public void updateRating(Textbook book) {
         IUserController uc = Main.injector.getInstance(IUserController.class);
         List<RatingValue> rate = uc.getRatings(book);
-        jLabel1.setText(book.getTitle());
-        
+        titleBt.setText(book.getTitle());
+        for (RatingValue val : rate) {
+            ratings.get(val.getRatingCategory()).setSelection(val.getTotal());
+            System.err.println(val.getRatingCategory() + " " + ratings.get(val.getRatingCategory()).getSelection());
+            //ratings.get(val.getRatingCategory()).repaint();
+        }
         System.out.println("Updating the rating");
         revalidate();
         invalidate();
         repaint();
+        
+        
     }
     
     /**
@@ -42,15 +56,15 @@ public class UserRated extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        starRater1 = new com.techspy.bookratingsystem.view.StarRater();
-        starRater2 = new com.techspy.bookratingsystem.view.StarRater();
-        starRater3 = new com.techspy.bookratingsystem.view.StarRater();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        helpfulRating = new com.techspy.bookratingsystem.view.StarRater();
+        clarityRating = new com.techspy.bookratingsystem.view.StarRater();
+        easinessRating = new com.techspy.bookratingsystem.view.StarRater();
+        titleBt = new javax.swing.JLabel();
+        deleteButton = new javax.swing.JButton();
 
-        jLabel1.setText("jLabel1");
+        titleBt.setText("jLabel1");
 
-        jButton1.setText("jButton1");
+        deleteButton.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -58,35 +72,35 @@ public class UserRated extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(titleBt)
                 .addGap(86, 86, 86)
-                .addComponent(starRater1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(helpfulRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(starRater2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(clarityRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(starRater3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(easinessRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1))
+                .addComponent(deleteButton))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(starRater1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(starRater2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(starRater3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(helpfulRating, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clarityRating, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(easinessRating, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(titleBt)
                         .addContainerGap())))
-            .addComponent(jButton1)
+            .addComponent(deleteButton)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private com.techspy.bookratingsystem.view.StarRater starRater1;
-    private com.techspy.bookratingsystem.view.StarRater starRater2;
-    private com.techspy.bookratingsystem.view.StarRater starRater3;
+    private com.techspy.bookratingsystem.view.StarRater clarityRating;
+    private javax.swing.JButton deleteButton;
+    private com.techspy.bookratingsystem.view.StarRater easinessRating;
+    private com.techspy.bookratingsystem.view.StarRater helpfulRating;
+    private javax.swing.JLabel titleBt;
     // End of variables declaration//GEN-END:variables
 }
