@@ -39,6 +39,8 @@ public class ResultPanel extends javax.swing.JPanel {
         userClarityRating = new com.techspy.bookratingsystem.view.StarRater();
         userEasinessRating = new com.techspy.bookratingsystem.view.StarRater();
 
+        setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
         clarityRating.setToolTipText("Clarity Rating");
         clarityRating.setEnabled(false);
 
@@ -68,7 +70,7 @@ public class ResultPanel extends javax.swing.JPanel {
                             .addComponent(lbTitle))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(169, Short.MAX_VALUE)
+                        .addContainerGap(167, Short.MAX_VALUE)
                         .addComponent(overallRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(83, 83, 83)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -97,7 +99,7 @@ public class ResultPanel extends javax.swing.JPanel {
                     .addComponent(clarityRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addComponent(overallRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addComponent(lbAuthor)

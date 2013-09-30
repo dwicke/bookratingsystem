@@ -50,7 +50,6 @@ public class UserController implements IUserController{
         theUser.setUname(username);
         theUser.setPass(password);
         loggedOn = true;
-        
         bus.post(this);
     }
 
@@ -58,6 +57,7 @@ public class UserController implements IUserController{
         theUser.setUname("");
         theUser.setPass("");
         loggedOn = false;
+        ratings.clear();
         bus.post(this);
     }
 
