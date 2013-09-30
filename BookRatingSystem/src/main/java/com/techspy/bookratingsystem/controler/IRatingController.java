@@ -4,6 +4,7 @@
  */
 package com.techspy.bookratingsystem.controler;
 
+import com.google.inject.Inject;
 import com.techspy.bookratingsystem.model.RatingValue;
 import com.techspy.bookratingsystem.model.Result;
 import com.techspy.bookratingsystem.model.Textbook;
@@ -25,6 +26,6 @@ public interface IRatingController {
     /**
      * initialize the rating controller.  should be first method called.
      */
-    public void init();
+    @Inject public void init(ITextbookController txtbookController);
     
 }

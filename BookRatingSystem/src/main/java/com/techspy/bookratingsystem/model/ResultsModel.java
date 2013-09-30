@@ -16,8 +16,6 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ResultsModel {
 
-    //public String [] columns = { "Title", "Author", "Helpfulness", "Clarity", "Easiness",  "Overall"};
-    
     private List<Result> results;
     
     public ResultsModel() {

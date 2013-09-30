@@ -11,14 +11,27 @@ package com.techspy.bookratingsystem.model;
 public class RatingValue {
     private float rating;
     private String ratingCategory;
+    private int total, possible, outof;
     
-    public RatingValue(float rating, String category) {
-        this.rating = rating;
+    /**
+     * 
+     * @param total the total number of stars that have been given in this rating
+     * @param possible the total possible number of starts that could have been given
+     * @param outof the number of stars per person
+     * @param category the category that this rating belongs to
+     */
+    public RatingValue(int total, int possible, int outof, String category) {
+        this.total = total;
+        this.possible = possible;
+        this.outof = outof;
+                
+        
+        this.rating = (float)total / (float) possible * (float) outof;
         this.ratingCategory = category;
     }
 
     public float getRating() {
-        return rating;
+        return (float)total / (float) possible * (float) outof;
     }
 
     public void setRating(float rating) {
@@ -31,6 +44,22 @@ public class RatingValue {
 
     public void setRatingCategory(String ratingCategory) {
         this.ratingCategory = ratingCategory;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getPossible() {
+        return possible;
+    }
+
+    public void setPossible(int possible) {
+        this.possible = possible;
     }
     
 
