@@ -5,7 +5,6 @@
 package com.techspy.bookratingsystem.controler.impl;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.techspy.bookratingsystem.controler.IRatingController;
 import com.techspy.bookratingsystem.controler.ITextbookController;
 import com.techspy.bookratingsystem.model.RatingEnum;
