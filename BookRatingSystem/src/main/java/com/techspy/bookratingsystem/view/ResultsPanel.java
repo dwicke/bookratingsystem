@@ -7,6 +7,7 @@ package com.techspy.bookratingsystem.view;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.techspy.bookratingsystem.controler.IResultsController;
+import com.techspy.bookratingsystem.controler.ISearchController;
 import com.techspy.bookratingsystem.model.Result;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class ResultsPanel extends javax.swing.JPanel {
         resultViews.add(resultPanel4);
         resultViews.add(resultPanel5);
         hideResults();
+        Main.injector.getInstance(ISearchController.class).setTitle("").search();
     }
 
     /**
