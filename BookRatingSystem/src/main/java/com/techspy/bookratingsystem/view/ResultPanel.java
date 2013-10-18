@@ -10,6 +10,7 @@ import com.google.inject.Inject;
 import com.techspy.bookratingsystem.controler.IRatingController;
 import com.techspy.bookratingsystem.controler.IUserController;
 import com.techspy.bookratingsystem.controler.impl.UserController;
+import com.techspy.bookratingsystem.model.RatingChangedMessage;
 import com.techspy.bookratingsystem.model.RatingEnum;
 import com.techspy.bookratingsystem.model.RatingValue;
 import com.techspy.bookratingsystem.model.Result;
@@ -269,16 +270,30 @@ public class ResultPanel extends javax.swing.JPanel implements StarRater.StarLis
     public void handleSelection(int selection, RatingEnum id) {
         System.out.println(myResult.getBook());
        System.out.println(myResult.getBook().getTitle() + " rated: " + id + " " + selection + "/5");
-       // get the usercontroller and tell it that the user has rated the book this way.
-       Main.injector.getInstance(IUserController.class).addRating(myResult.getBook(), new RatingValue(selection, 5, 5, id));
-       // also must update the view of the overall rating
+       RatingChangedMessage message = new RatingChangedMessage(myResult.getBook(), new RatingValue(selection, 5, 5, id));
        
-        for (RatingValue rate : Main.injector.getInstance(IRatingController.class).getRating(myResult.getBook())) {
-            ratings.get(rate.getRatingCategory()).setRating(rate.getRating());
-        }
-       
+        // get the usercontroller and tell it that the user has rated the book this way.
+        Main.injector.getInstance(IUserController.class).addRating(message.getBook(), message.getVal());
+       ratingsChanged(message);
     }
     
+    /**
+     * Will be called to change the ratings.
+     * @param message 
+     */
+    @Subscribe public void ratingsChanged(RatingChangedMessage message) {
+        if (message.getBook().equals(myResult.getBook())) {
+            // then take care of it
+            // also must update the view of the overall rating
+
+             for (RatingValue rate : Main.injector.getInstance(IRatingController.class).getRating(message.getBook())) {
+                 ratings.get(rate.getRatingCategory()).setRating(rate.getRating());
+             }
+             // update the rating star view
+             uratings.get(message.getVal().getRatingCategory()).setSelection(message.getVal().getTotal());
+             uratings.get(message.getVal().getRatingCategory()).repaint();
+        }
+    }
     
     @Subscribe void handleProfileUpdates(Textbook book) {
         

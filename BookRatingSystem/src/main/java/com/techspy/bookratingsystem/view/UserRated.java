@@ -4,7 +4,9 @@
  */
 package com.techspy.bookratingsystem.view;
 
+import com.google.common.eventbus.EventBus;
 import com.techspy.bookratingsystem.controler.IUserController;
+import com.techspy.bookratingsystem.model.RatingChangedMessage;
 import com.techspy.bookratingsystem.model.RatingEnum;
 import com.techspy.bookratingsystem.model.RatingValue;
 import com.techspy.bookratingsystem.model.Textbook;
@@ -16,7 +18,7 @@ import java.util.Map;
  *
  * @author drew
  */
-public class UserRated extends javax.swing.JPanel {
+public class UserRated extends javax.swing.JPanel  implements StarRater.StarListener {
 
     private Map<RatingEnum, StarRater> ratings;
     private Textbook myText;
@@ -29,6 +31,10 @@ public class UserRated extends javax.swing.JPanel {
         ratings.put(RatingEnum.HELPFUL, helpfulRating);
         ratings.put(RatingEnum.CLARITY, clarityRating);
         ratings.put(RatingEnum.EASINESS, easinessRating);
+        for(Map.Entry<RatingEnum, StarRater> r : ratings.entrySet()) {
+            r.getValue().addStarListener(this);
+            r.getValue().setID(r.getKey());
+        }
     }
 
     public void updateRating(Textbook book) {
@@ -112,4 +118,13 @@ public class UserRated extends javax.swing.JPanel {
     private com.techspy.bookratingsystem.view.StarRater helpfulRating;
     private javax.swing.JLabel titleBt;
     // End of variables declaration//GEN-END:variables
+
+    public void handleSelection(int selection, RatingEnum id) {
+        RatingChangedMessage message = new RatingChangedMessage(myText, new RatingValue(selection, 5, 5, id));
+       
+        // get the usercontroller and tell it that the user has rated the book this way.
+        Main.injector.getInstance(IUserController.class).addRating(message.getBook(), message.getVal());
+        // let the search view know about it so that 
+        Main.injector.getInstance(EventBus.class).post(message);
+    }
 }

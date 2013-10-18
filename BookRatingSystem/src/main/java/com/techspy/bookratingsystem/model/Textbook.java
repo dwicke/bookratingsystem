@@ -38,6 +38,15 @@ public class Textbook implements Comparable<Textbook> {
     public int compareTo(Textbook o) {
         return o.id.compareTo(id);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        //To change body of generated methods, choose Tools | Templates.
+        if (!(obj instanceof Textbook)){
+            return false;
+        }
+        return ((Textbook) obj).id.equals(id);
+    }
     
     
 }

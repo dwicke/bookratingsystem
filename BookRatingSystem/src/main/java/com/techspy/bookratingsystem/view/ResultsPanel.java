@@ -8,6 +8,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.techspy.bookratingsystem.controler.IResultsController;
 import com.techspy.bookratingsystem.controler.ISearchController;
+import com.techspy.bookratingsystem.model.RatingChangedMessage;
 import com.techspy.bookratingsystem.model.Result;
 import java.util.ArrayList;
 import java.util.List;

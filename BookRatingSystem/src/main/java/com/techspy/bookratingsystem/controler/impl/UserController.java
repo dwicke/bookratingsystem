@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import com.techspy.bookratingsystem.controler.IRatingController;
 import com.techspy.bookratingsystem.controler.IUserController;
 import com.techspy.bookratingsystem.model.RatingValue;
+import com.techspy.bookratingsystem.model.RemoveUserTextbookMessage;
 import com.techspy.bookratingsystem.model.Textbook;
 import com.techspy.bookratingsystem.model.User;
 import com.techspy.bookratingsystem.view.Main;
@@ -117,11 +118,16 @@ public class UserController implements IUserController{
         return theUser.getRatings().get(title);
     }
 
+    /**
+     * Removes the book from the user ratings and from the aggregate ratings.
+     * Publishes a RemoveUserTextbookMessage with the book that it removed.
+     * @param title the book to remove
+     */
     public void deleteRating(Textbook title) {
         // must remove the rating from ratingcontroller
         Main.injector.getInstance(IRatingController.class).removeRating(title, theUser.getRatings().get(title));
         theUser.getRatings().remove(title);
-        
+        bus.post(new RemoveUserTextbookMessage(title));
     }
     
 }
