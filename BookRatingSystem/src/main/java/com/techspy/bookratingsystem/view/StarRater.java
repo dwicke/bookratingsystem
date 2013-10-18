@@ -60,7 +60,9 @@ public class StarRater extends JPanel {
   public void setID (RatingEnum id) {
       this.id = id;
   }
-  
+  public RatingEnum getID() {
+      return id;
+  }
   /**
    * The constructor.
    */

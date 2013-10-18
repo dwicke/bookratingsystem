@@ -47,7 +47,38 @@ public class RatingController implements IRatingController {
         }
     }
 
-    
+    public void addRating(Textbook text, List<RatingValue> rating) {
+         List<RatingValue> prevRatings = ratings.get(text);
+        for (RatingValue val : rating) {
+            RatingValue oldVal = prevRatings.get(prevRatings.indexOf(val));
+            oldVal.addPossible(val.getPossible());
+            oldVal.addTotal(val.getTotal());
+        }
+        updateOverall(text);
+    }
+
+    public void removeRating(Textbook text, List<RatingValue> rating) {
+        
+        List<RatingValue> prevRatings = ratings.get(text);
+        for (RatingValue val : rating) {
+            RatingValue oldVal = prevRatings.get(prevRatings.indexOf(val));
+            oldVal.addPossible(-1 * val.getPossible());
+            oldVal.addTotal(-1 * val.getTotal());
+        }
+        
+        updateOverall(text);
+    }
+
+    public void updateOverall(Textbook book) {
+        RatingValue over = new RatingValue(0, 0, 0, RatingEnum.OVERALL);
+        RatingValue overall = ratings.get(book).get(ratings.get(book).indexOf(over));
+        for (RatingValue val : ratings.get(book)) {
+            if (!val.equals(over)) {
+                overall.setPossible(val.getPossible());
+                overall.setTotal(val.getTotal());
+            }
+        }
+    }
     
     
 }

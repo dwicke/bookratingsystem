@@ -7,6 +7,7 @@ package com.techspy.bookratingsystem.view;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
+import com.techspy.bookratingsystem.controler.IRatingController;
 import com.techspy.bookratingsystem.controler.IUserController;
 import com.techspy.bookratingsystem.controler.impl.UserController;
 import com.techspy.bookratingsystem.model.RatingEnum;
@@ -14,6 +15,7 @@ import com.techspy.bookratingsystem.model.RatingValue;
 import com.techspy.bookratingsystem.model.Result;
 import com.techspy.bookratingsystem.model.Textbook;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.RowFilter;
@@ -62,6 +64,43 @@ public class ResultPanel extends javax.swing.JPanel implements StarRater.StarLis
         for (RatingValue rate : res.getRatings()) {
             ratings.get(rate.getRatingCategory()).setRating(rate.getRating());
         }
+        // also need to get the user's rating's
+        
+        IUserController uControl = Main.injector.getInstance(IUserController.class);
+        if (uControl.isLoggedOn()) {
+            // need to show the appropriate user ratings
+            List<RatingValue> ur = uControl.getRatings(myResult.getBook());
+            if (ur != null) {
+                
+                // need to set those that are rated and clear those aren't
+                for (StarRater r : uratings.values()) {
+                    RatingValue valLookup = new RatingValue(0, 0, 0, r.getID());
+                    
+                    
+                    if (!ur.contains(valLookup)) {
+                        // the user hasn't rated this category yet
+                        r.setSelection(0);
+                        r.repaint();
+                    }
+                    else {
+                        RatingValue userVal = ur.get(ur.indexOf(valLookup));
+                        // user has rated this category show show it
+                        r.setSelection(userVal.getTotal());
+                        r.repaint();
+                    }
+                    
+                }
+                
+            }else {
+                // reset the ratings
+                for (StarRater r : uratings.values()) {
+                    r.setSelection(0);
+                    r.repaint();
+                    
+                }
+            }
+        }
+        
         
     }
     
@@ -232,6 +271,12 @@ public class ResultPanel extends javax.swing.JPanel implements StarRater.StarLis
        System.out.println(myResult.getBook().getTitle() + " rated: " + id + " " + selection + "/5");
        // get the usercontroller and tell it that the user has rated the book this way.
        Main.injector.getInstance(IUserController.class).addRating(myResult.getBook(), new RatingValue(selection, 5, 5, id));
+       // also must update the view of the overall rating
+       
+        for (RatingValue rate : Main.injector.getInstance(IRatingController.class).getRating(myResult.getBook())) {
+            ratings.get(rate.getRatingCategory()).setRating(rate.getRating());
+        }
+       
     }
     
     

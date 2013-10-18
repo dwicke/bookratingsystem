@@ -16,7 +16,7 @@ public class RatingValue {
     /**
      * 
      * @param total the total number of stars that have been given in this rating
-     * @param possible the total possible number of starts that could have been given
+     * @param possible the total possible number of stars that could have been given
      * @param outof the number of stars per person
      * @param category the category that this rating belongs to
      */
@@ -42,7 +42,12 @@ public class RatingValue {
         return ratingCategory;
     }
 
-    
+    public void addPossible(int inc) {
+        possible += inc;
+    }
+    public void addTotal(int inc) { 
+        total += inc;
+    }
 
     public int getTotal() {
         return total;

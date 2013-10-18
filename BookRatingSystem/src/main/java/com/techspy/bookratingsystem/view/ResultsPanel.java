@@ -41,10 +41,11 @@ public class ResultsPanel extends javax.swing.JPanel {
      */
     @Subscribe public void updateResults(IResultsController results) {
         // first clear the current results
-        System.out.println("HIhihih");
+        System.out.println("Updating results in Results Panel");
         hideResults();
         int i = 0;
         // then update them and show them as you go along
+        
         for(Result res : results.getNextResultPage()) {
             System.out.println(res);
             resultViews.get(i).setResult(res);

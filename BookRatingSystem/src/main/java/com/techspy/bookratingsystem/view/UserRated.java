@@ -41,12 +41,10 @@ public class UserRated extends javax.swing.JPanel {
             System.err.println(val.getRatingCategory() + " " + ratings.get(val.getRatingCategory()).getSelection());
             //ratings.get(val.getRatingCategory()).repaint();
         }
-        System.out.println("Updating the rating");
+        System.out.println("Updating the userRated rating");
         revalidate();
         invalidate();
         repaint();
-        
-        
     }
     
     /**
@@ -66,7 +64,7 @@ public class UserRated extends javax.swing.JPanel {
 
         titleBt.setText("jLabel1");
 
-        deleteButton.setText("remove");
+        deleteButton.setText("x");
         deleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 deleteButtonMouseClicked(evt);
@@ -102,6 +100,7 @@ public class UserRated extends javax.swing.JPanel {
     private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
         // TODO add your handling code here:
         IUserController uc = Main.injector.getInstance(IUserController.class);
+        uc.deleteRating(myText);
         
         
     }//GEN-LAST:event_deleteButtonMouseClicked
