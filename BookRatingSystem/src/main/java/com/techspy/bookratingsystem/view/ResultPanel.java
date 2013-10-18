@@ -13,6 +13,7 @@ import com.techspy.bookratingsystem.controler.impl.UserController;
 import com.techspy.bookratingsystem.model.RatingChangedMessage;
 import com.techspy.bookratingsystem.model.RatingEnum;
 import com.techspy.bookratingsystem.model.RatingValue;
+import com.techspy.bookratingsystem.model.RemoveUserTextbookMessage;
 import com.techspy.bookratingsystem.model.Result;
 import com.techspy.bookratingsystem.model.Textbook;
 import java.util.EnumMap;
@@ -293,10 +294,21 @@ public class ResultPanel extends javax.swing.JPanel implements StarRater.StarLis
              uratings.get(message.getVal().getRatingCategory()).setSelection(message.getVal().getTotal());
              uratings.get(message.getVal().getRatingCategory()).repaint();
         }
-    }
-    
-    @Subscribe void handleProfileUpdates(Textbook book) {
         
     }
+    @Subscribe public void ratingRemoved(RemoveUserTextbookMessage message) {
+        if (message.getBook().equals(myResult.getBook())) {
+            // update the ratings since they were removed.
+            for (RatingValue rate : Main.injector.getInstance(IRatingController.class).getRating(message.getBook())) {
+                 ratings.get(rate.getRatingCategory()).setRating(rate.getRating());
+             }
+             // update the rating star view
+            for(StarRater urating : uratings.values()) {
+             urating.setSelection(0);
+             urating.repaint();
+            }
+        }
+    }
+    
     
 }

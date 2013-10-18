@@ -6,6 +6,7 @@ package com.techspy.bookratingsystem.view;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import com.techspy.bookratingsystem.model.RemoveUserTextbookMessage;
 import com.techspy.bookratingsystem.model.Textbook;
 import java.awt.GridLayout;
 import java.util.Map;
@@ -46,6 +47,14 @@ public class UserRatedPane extends javax.swing.JPanel {
         revalidate();
         invalidate();
         repaint();
+    }
+    
+    @Subscribe public void removeRating(RemoveUserTextbookMessage textbookRating) {
+        System.out.println("User profile is removing ratings");
+        
+        userRatedPanel.remove(updateMap.get(textbookRating.getBook()));
+        updateMap.remove(textbookRating.getBook());
+        userRatedPanel.revalidate();
     }
     /**
      * This method is called from within the constructor to initialize the form.
