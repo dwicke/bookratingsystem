@@ -7,6 +7,7 @@ package com.techspy.bookratingsystem.view;
 import com.google.common.eventbus.EventBus;
 import com.techspy.bookratingsystem.controler.ISearchController;
 import com.techspy.bookratingsystem.model.SearchTerm;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -38,6 +39,12 @@ public class Search extends javax.swing.JPanel {
         searchButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 searchButtonMouseClicked(evt);
+            }
+        });
+
+        tfSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfSearchKeyPressed(evt);
             }
         });
 
@@ -76,6 +83,14 @@ public class Search extends javax.swing.JPanel {
         // search based on the title
         Main.injector.getInstance(ISearchController.class).setTitle(tfSearch.getText()).search();
     }//GEN-LAST:event_searchButtonMouseClicked
+
+    private void tfSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSearchKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            Main.injector.getInstance(ISearchController.class).setTitle(tfSearch.getText()).search();
+        }
+    }//GEN-LAST:event_tfSearchKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
