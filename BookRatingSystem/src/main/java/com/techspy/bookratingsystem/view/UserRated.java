@@ -14,6 +14,7 @@ import java.awt.Container;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -105,11 +106,15 @@ public class UserRated extends javax.swing.JPanel  implements StarRater.StarList
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
-        // TODO add your handling code here:
-        IUserController uc = Main.injector.getInstance(IUserController.class);
-        uc.deleteRating(myText);
         
-        
+        // make sure to check with the user before deleting.
+        String message = "Do you really want to remove the rating for: " + myText.getTitle() + "?";
+        String title = "Are you sure?";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            IUserController uc = Main.injector.getInstance(IUserController.class);
+            uc.deleteRating(myText);
+        }
     }//GEN-LAST:event_deleteButtonMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
