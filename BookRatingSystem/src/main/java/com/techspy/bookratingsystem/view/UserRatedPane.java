@@ -54,7 +54,9 @@ public class UserRatedPane extends javax.swing.JPanel {
         
         userRatedPanel.remove(updateMap.get(textbookRating.getBook()));
         updateMap.remove(textbookRating.getBook());
+        userRatedPanel.invalidate();
         userRatedPanel.revalidate();
+        userRatedPanel.repaint();
     }
     /**
      * This method is called from within the constructor to initialize the form.
