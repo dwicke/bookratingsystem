@@ -6,6 +6,7 @@ package com.techspy.bookratingsystem.view;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import com.techspy.bookratingsystem.controler.IUserController;
 import com.techspy.bookratingsystem.model.RemoveUserTextbookMessage;
 import com.techspy.bookratingsystem.model.Textbook;
 import java.awt.GridLayout;
@@ -58,6 +59,15 @@ public class UserRatedPane extends javax.swing.JPanel {
         userRatedPanel.invalidate();
         userRatedPanel.revalidate();
         userRatedPanel.repaint();
+    }
+    
+    @Subscribe public void userChange(IUserController ucontrol) {
+        if (!ucontrol.isLoggedOn()) {
+            updateMap.clear();
+            userRatedPanel.removeAll();
+            userRatedPanel.validate();
+            userRatedPanel.repaint();
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.

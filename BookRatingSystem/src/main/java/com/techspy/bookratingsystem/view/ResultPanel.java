@@ -115,6 +115,7 @@ public class ResultPanel extends javax.swing.JPanel implements StarRater.StarLis
         }
         else {
             for(StarRater r : uratings.values()) {
+                r.setSelection(0);
                 r.setVisible(false);
             }
             lbRateit.setVisible(false);
