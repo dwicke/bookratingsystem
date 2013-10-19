@@ -19,5 +19,8 @@ public interface IResultsController {
     public List<Result> getPrevResultPage();
     public boolean hasNextPage();
     public boolean hasPrevPage();
+    public int getNumPages();
+    public int getCurrentPage();
+
    
 }

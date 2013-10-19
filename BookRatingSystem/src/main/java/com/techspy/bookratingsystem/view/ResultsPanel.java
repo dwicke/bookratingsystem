@@ -8,6 +8,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.techspy.bookratingsystem.controler.IResultsController;
 import com.techspy.bookratingsystem.controler.ISearchController;
+import com.techspy.bookratingsystem.model.NavigationMessage;
 import com.techspy.bookratingsystem.model.RatingChangedMessage;
 import com.techspy.bookratingsystem.model.Result;
 import java.util.ArrayList;
@@ -57,6 +58,28 @@ public class ResultsPanel extends javax.swing.JPanel {
         this.repaint();
         
     }
+    
+    @Subscribe public void processNav(NavigationMessage message) {
+        if (message.isNextPage()) {
+            updateResults(Main.injector.getInstance(IResultsController.class));
+        } else {
+            IResultsController results = Main.injector.getInstance(IResultsController.class);
+            hideResults();
+            int i = 0;
+            // then update them and show them as you go along
+
+            
+            for(Result res : results.getPrevResultPage()) {
+                System.out.println(res);
+                resultViews.get(i).setResult(res);
+                resultViews.get(i).setVisible(true);
+                i++;
+            }
+
+            this.repaint();
+        }
+    }
+
     
     private void hideResults() {
         for (ResultPanel res : resultViews) {
