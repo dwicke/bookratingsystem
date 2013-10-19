@@ -7,6 +7,7 @@ package com.techspy.bookratingsystem.view;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.techspy.bookratingsystem.model.MyModule;
+import javax.swing.JFrame;
 
 /**
  *
@@ -41,8 +42,10 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Text Book Rating System");
+        setExtendedState(MAXIMIZED_BOTH);
 
-        jSplitPane2.setDividerLocation(300);
+        jSplitPane2.setDividerLocation(450);
+        jSplitPane2.setLastDividerLocation(400);
 
         profile1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jSplitPane2.setLeftComponent(profile1);
