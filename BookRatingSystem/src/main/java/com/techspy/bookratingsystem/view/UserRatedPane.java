@@ -27,7 +27,8 @@ public class UserRatedPane extends javax.swing.JPanel {
         initComponents();
         Main.injector.getInstance(EventBus.class).register(this);// register this to receive events
         updateMap = new TreeMap<Textbook, UserRated>();
-        userRatedPanel.setLayout(new GridLayout(5, 1));
+        
+        userRatedPanel.setLayout(new GridLayout(0, 1));
     }
 
     @Subscribe public void updateRating(Textbook title) {
@@ -87,7 +88,7 @@ public class UserRatedPane extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
